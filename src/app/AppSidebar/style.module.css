@@ -7,6 +7,8 @@
   left: 0;
   bottom: 0;
   z-index: 10;
+  opacity: 1;
+  transition: opacity 0.3s ease 0s;
   visibility: visible;
 }
 
@@ -46,14 +48,13 @@
 
     &[data-expanded='true'] {
       visibility: visible;
-      transition:
-        left 0s ease 0s,
-        visibility 0s ease 0s;
+      transition: none;
       left: 0;
 
       .menus {
         opacity: 1;
         transform: translateY(0px);
+        will-change: opacity, transform;
         transition:
           opacity 0.45s ease 0s,
           transform 0.45s ease 0s;
