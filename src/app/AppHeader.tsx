@@ -35,7 +35,10 @@ export default function AppHeader() {
 
   return (
     <header className='h-14 flex items-center justify-between px-6'>
-      <Button className='hover:bg-gray-200' variant='ghost' size='lg'>
+      <Button className='hover:bg-[#DFDFDF] gap-3' variant='ghost' size='lg'>
+        <Avatar size='sm'>
+          <AvatarFallback>P</AvatarFallback>
+        </Avatar>
         Personal
       </Button>
       <div className='flex flex-row items-center'>
