@@ -2,6 +2,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -10,22 +11,54 @@ import {
 import { useAppStore } from '@/hooks/useAppStore';
 import { useTheme } from '@/hooks/useTheme';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconHome } from '@tabler/icons-react';
+import { IconBrandYoutube, IconHome, IconMessageCircle, IconPhoto } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { useRef, useState, type CSSProperties, type Key, type ReactNode } from 'react';
 import classes from './style.module.css';
 
+type SidebarGroups = {
+  key: Key;
+  label?: string;
+  items?: SidebarMenus[];
+};
+
 type SidebarMenus = {
   key: Key;
   title: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 };
 
-const menus: SidebarMenus[] = [
+const menus: SidebarGroups[] = [
   {
-    key: 'home',
-    title: 'Home',
-    icon: <IconHome />,
+    key: 'group_1',
+    items: [
+      {
+        key: 'home',
+        title: 'Home',
+        icon: <IconHome />,
+      },
+    ],
+  },
+  {
+    key: 'gruop_2',
+    label: 'Actions',
+    items: [
+      {
+        key: 'chat',
+        title: 'Chat',
+        icon: <IconMessageCircle />,
+      },
+      {
+        key: 'images',
+        title: 'Images',
+        icon: <IconPhoto />,
+      },
+      {
+        key: 'video',
+        title: 'Video',
+        icon: <IconBrandYoutube />,
+      },
+    ],
   },
 ];
 
@@ -55,24 +88,27 @@ export default function AppSidebar() {
           }
         >
           <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {menus.map((menu) => (
-                    <SidebarMenuItem key={menu.key}>
-                      <SidebarMenuButton
-                        isActive={menu.key === active}
-                        className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer'
-                        onClick={() => setActive(menu.key as string)}
-                      >
-                        {menu.icon}
-                        {menu.title}
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
+            {menus.map((menu) => (
+              <SidebarGroup key={menu.key}>
+                <SidebarGroupLabel hidden={!menu.label}>{menu.label}</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {menu.items?.map((item) => (
+                      <SidebarMenuItem key={item.key} className='mb-1'>
+                        <SidebarMenuButton
+                          isActive={item.key === active}
+                          className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer'
+                          onClick={() => setActive(item.key as string)}
+                        >
+                          {item.icon}
+                          {item.title}
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            ))}
           </SidebarContent>
         </SidebarProvider>
       </div>
