@@ -42,13 +42,20 @@ export default function AppHeader() {
 
   return (
     <header className='h-14 flex items-center justify-between px-6'>
-      <Button className='hover:bg-[#DFDFDF] gap-3' variant='ghost' size='lg'>
-        <Avatar size='sm'>
-          <AvatarFallback className='bg-primary text-muted'>P</AvatarFallback>
-        </Avatar>
-        Personal
-        <IconSelector />
-      </Button>
+      <div className='flex flex-row items-center gap-0.5'>
+        <Button className='hover:bg-[#DFDFDF] gap-2' variant='ghost' size='lg'>
+          <Avatar size='sm'>
+            <AvatarFallback className='bg-primary text-muted'>P</AvatarFallback>
+          </Avatar>
+          Personal
+          <IconSelector />
+        </Button>
+        <p className='text-sm text-muted-foreground'>/</p>
+        <Button className='hover:bg-[#DFDFDF] gap-2' variant='ghost' size='lg'>
+          Default Project
+          <IconSelector />
+        </Button>
+      </div>
       <div className='flex flex-row items-center'>
         <Button hidden={matches} size='icon' variant='outline' onClick={() => toggleSiderbar()}>
           {expanded ? <IconX /> : <IconMenu />}
