@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# shadcn-ui-shell
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository is a practice project for learning how to build a UI shell with shadcn/ui.
 
-Currently, two official plugins are available:
+The current implementation focuses on the application frame rather than business logic. It includes a top header, a responsive sidebar, theme switching, and a content container that is ready for future pages.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What It Shows
 
-## React Compiler
+- A fixed app layout with a header and main workspace
+- A responsive sidebar that can be toggled on mobile
+- A simple navigation menu with mock sections
+- Theme support for light, dark, and system modes
+- Shared UI primitives built with shadcn/ui
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Main Behavior
 
-## Expanding the ESLint configuration
+- `src/app/App.tsx` wraps the app with a theme provider and tooltip provider.
+- `src/app/AppHeader.tsx` renders the top bar, account popover, and theme controls.
+- `src/app/AppContent.tsx` defines the main workspace area and mounts the sidebar.
+- `src/app/AppSidebar/index.tsx` renders the sidebar groups and menu items.
+- `src/hooks/useAppStore.ts` keeps the sidebar expanded or collapsed state.
+- `src/hooks/useTheme.ts` and `src/components/ui/theme-provider.tsx` manage theme state and persistence.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Source Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- `src/app` - application layout components
+- `src/components/ui` - reusable shadcn/ui-based components
+- `src/hooks` - app state and theme hooks
+- `src/lib` - shared utility helpers
+- `src/index.css` - global styles and theme tokens
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Notes
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- The sidebar menu is currently a mock navigation set.
+- The content area is intentionally empty and can be used as a starting point for pages or widgets.
+- The project is meant for learning and experimentation, not as a finished product.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Learning Goal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The goal of this project is to understand how to assemble a clean UI shell with shadcn/ui components, responsive behavior, theme management, and a small amount of local state.
