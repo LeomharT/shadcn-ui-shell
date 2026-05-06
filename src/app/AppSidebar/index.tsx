@@ -30,7 +30,7 @@ type SidebarMenus = {
 
 const menus: SidebarGroups[] = [
   {
-    key: 'group_1',
+    key: 'group_home',
     items: [
       {
         key: 'home',
@@ -40,7 +40,7 @@ const menus: SidebarGroups[] = [
     ],
   },
   {
-    key: 'gruop_2',
+    key: 'gruop_action',
     label: 'Actions',
     items: [
       {
@@ -59,6 +59,10 @@ const menus: SidebarGroups[] = [
         icon: <IconBrandYoutube />,
       },
     ],
+  },
+  {
+    key: 'group_manage',
+    label: 'Manage',
   },
 ];
 
@@ -83,7 +87,7 @@ export default function AppSidebar() {
         <SidebarProvider
           style={
             {
-              '--sidebar-accent': theme === 'light' ? '#DFDFDF' : undefined,
+              '--sidebar-accent': theme !== 'dark' ? '#DFDFDF' : undefined,
             } as CSSProperties
           }
         >
