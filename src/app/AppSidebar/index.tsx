@@ -21,6 +21,7 @@ import {
 import clsx from 'clsx';
 import { useRef, useState, type CSSProperties, type Key, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
+import { useShallow } from 'zustand/shallow';
 import classes from './style.module.css';
 
 type SidebarGroups = {
@@ -66,7 +67,7 @@ export default function AppSidebar() {
 
   const matches = useMediaQuery('(max-width: 48rem)');
 
-  const expanded = useAppStore((state) => state.expanded);
+  const { expanded, toggleSiderbar } = useAppStore(useShallow((state) => ({ ...state })));
 
   const [active, setActive] = useState(location.pathname);
 
@@ -96,7 +97,10 @@ export default function AppSidebar() {
                           <SidebarMenuButton
                             isActive={item.path === active}
                             className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer'
-                            onClick={() => setActive(item.path)}
+                            onClick={() => {
+                              setActive(item.path);
+                              if (expanded) toggleSiderbar();
+                            }}
                           >
                             {item.icon}
                             {item.title}
