@@ -41,7 +41,7 @@ export default function AppHeader() {
   }, [matches, expanded, toggleSiderbar]);
 
   return (
-    <header className='h-14 flex items-center justify-between px-6'>
+    <header className='h-14 flex items-center justify-between pl-2 pr-6'>
       <div className='flex flex-row items-center gap-0.5'>
         <Button className='hover:bg-[#DFDFDF] gap-2' variant='ghost' size='lg'>
           <Avatar size='sm'>
