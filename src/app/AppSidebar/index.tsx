@@ -93,7 +93,7 @@ export default function AppSidebar() {
                   <SidebarMenu>
                     {menu.items?.map((item) => (
                       <SidebarMenuItem key={item.key} className='mb-1'>
-                        <Link to={item.path}>
+                        <Link to={item.path} viewTransition>
                           <SidebarMenuButton
                             isActive={item.path === active}
                             className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer'
