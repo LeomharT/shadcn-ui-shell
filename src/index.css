@@ -134,3 +134,16 @@
 body {
   background-color: var(--color-surface);
 }
+
+@theme {
+  --animate-fade-in: fadeIn 0.3s ease-in-out 0s 1 forwards;
+
+  @keyframes fadeIn {
+    form {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { IconError404 } from '@tabler/icons-react';
 
 export default function NotFound() {
   return (
-    <div className='w-full h-200 flex justify-center items-center'>
+    <div className='w-full h-200 flex justify-center items-center animate-fade-in opacity-0'>
       <div className='inline-flex flex-col items-center gap-3'>
         <Button className='w-10 h-10 [&_svg]:w-6! [&_svg]:h-6!' variant='secondary'>
           <IconError404 />
