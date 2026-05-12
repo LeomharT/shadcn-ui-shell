@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -44,9 +45,7 @@ export default function APIKeysTable(props: APIKeysTableProps) {
             <TableHead
               key={c.key}
               style={{ minWidth: c.width }}
-              className={
-                'whitespace-nowrap uppercase text-[12px] font-semibold min-w-41.25 nth-of-type-[1]:pl-0'
-              }
+              className='whitespace-nowrap uppercase text-[12px] font-semibold min-w-41.25 nth-of-type-[1]:pl-0'
             >
               {c.title}
             </TableHead>
@@ -54,6 +53,15 @@ export default function APIKeysTable(props: APIKeysTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
+        {props.loading && (
+          <TableRow className='hover:bg-transparent'>
+            {props.columns.map((c) => (
+              <TableCell key={c.key} className='text-[13px] w-full nth-of-type-[1]:pl-0'>
+                <Skeleton className='h-4 w-full' />
+              </TableCell>
+            ))}
+          </TableRow>
+        )}
         {props.data.map((item) => (
           <TableRow key={item[props.rowKey]} className='hover:bg-transparent'>
             {props.columns.map((c, i) => (

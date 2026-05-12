@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import APIKeysTable from './APIKeysTable/intex';
 
 const mocked = [
@@ -18,12 +18,36 @@ const mocked = [
     created_by: 'Leo Leomhart',
     permissions: 'All',
   },
+  {
+    id: 2,
+    name: 'Secret key',
+    status: 'Active',
+    tracking_id: 'key_DlYgOSGundGD2Aq1',
+    secret_key: 'sk-...1hAA',
+    created: 'Apr 15, 2026',
+    last_used: 'Never',
+    created_by: 'Leo Leomhart',
+    permissions: 'All',
+  },
 ];
 
 export default function APIKeys() {
   const [active, setActive] = useState('project');
 
-  const [data] = useState(mocked);
+  const [loading, setLoading] = useState(true);
+
+  const [data, setData] = useState<typeof mocked>([]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLoading(false);
+      setData(mocked);
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
     <div>
@@ -68,6 +92,7 @@ export default function APIKeys() {
       <div className='my-4.5'>
         <APIKeysTable
           rowKey='id'
+          loading={loading}
           data={data}
           columns={[
             { title: 'Name', key: 'Name', dataIndex: 'name' },
@@ -77,7 +102,7 @@ export default function APIKeys() {
             { title: 'Created', key: 'Created', dataIndex: 'created' },
             { title: 'Last used', key: 'Last used', dataIndex: 'last_used', tip: '' },
             { title: 'Created by', key: 'Created by', dataIndex: 'created_by' },
-            { title: 'Permissions', key: 'Permissions', dataIndex: 'permissions', width: 80 },
+            { title: 'Permissions', key: 'Permissions', dataIndex: 'permissions' },
             {
               title: '',
               key: 'action',
