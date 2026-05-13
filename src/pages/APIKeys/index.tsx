@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import APIKeysCreate from './APIKeysCreate';
 import APIKeysTable from './APIKeysTable/intex';
 
 const mocked = [
@@ -32,6 +33,8 @@ const mocked = [
 ];
 
 export default function APIKeys() {
+  const [open, setOpen] = useState(true);
+
   const [active, setActive] = useState('project');
 
   const [loading, setLoading] = useState(true);
@@ -51,12 +54,13 @@ export default function APIKeys() {
 
   return (
     <div>
+      <APIKeysCreate open={open} onOpenChange={setOpen} />
       <header className='flex flex-col gap-3 mb-6'>
         <div className='flex flex-row flex-wrap gap-3 justify-between items-start'>
           <h1 className='scroll-m-20 text-[20px] font-semibold tracking-tight text-balance'>
             API Keys
           </h1>
-          <Button className='h-8'>
+          <Button className='h-8' onClick={() => setOpen(true)}>
             <IconPlus />
             Create new secret key
           </Button>
