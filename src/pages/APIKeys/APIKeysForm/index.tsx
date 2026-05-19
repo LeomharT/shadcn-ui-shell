@@ -5,10 +5,10 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useForm } from '@mantine/form';
 import type React from 'react';
 
@@ -21,11 +21,13 @@ export default function APIKeysForm(props: APIKeysFormProps) {
     mode: 'uncontrolled',
     initialValues: {
       name: '',
-      project: '',
+      project: 'default',
+      permission: 'all',
     },
     validate: {
       name: (value: string) => (value.trim() ? null : 'Please enter secret key name'),
       project: (value: string) => (value ? null : 'Please enter project name'),
+      permission: (value: string) => (value ? null : 'Please select permission'),
     },
   });
 
@@ -36,6 +38,7 @@ export default function APIKeysForm(props: APIKeysFormProps) {
   const fields = {
     name: form.getInputProps('name'),
     project: form.getInputProps('project'),
+    permission: form.getInputProps('permission'),
   };
 
   return (
@@ -46,21 +49,33 @@ export default function APIKeysForm(props: APIKeysFormProps) {
             <Input id='name' type='text' placeholder='My Test Key' {...fields.name} />
           </FormField>
           <FormField id='project' label='Project' error={fields.project.error}>
-            <Select>
-              <SelectTrigger className='w-full max-w-48'>
-                <SelectValue id='project' placeholder='Select a fruit' />
+            <Select
+              defaultValue={fields.project.defaultValue}
+              onValueChange={fields.project.onChange}
+            >
+              <SelectTrigger className='w-full'>
+                <SelectValue id='project' placeholder='Select a project' />
               </SelectTrigger>
               <SelectContent position='popper'>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value='apple'>Apple</SelectItem>
-                  <SelectItem value='banana'>Banana</SelectItem>
-                  <SelectItem value='blueberry'>Blueberry</SelectItem>
-                  <SelectItem value='grapes'>Grapes</SelectItem>
-                  <SelectItem value='pineapple'>Pineapple</SelectItem>
+                  <SelectItem value='default'>Default Project</SelectItem>
+                  <SelectItem value='startnet'>Startnet</SelectItem>
+                  <SelectItem value='newland'>Newland</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
+          </FormField>
+          <FormField id='permission' label='Permissions' error={fields.permission.error}>
+            <Tabs
+              defaultValue={fields.permission.defaultValue}
+              onValueChange={fields.permission.onChange}
+            >
+              <TabsList>
+                <TabsTrigger value='all'>All</TabsTrigger>
+                <TabsTrigger value='restricted'>Restricted</TabsTrigger>
+                <TabsTrigger value='readonly'>Readonly</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </FormField>
         </FieldGroup>
       </FieldSet>
