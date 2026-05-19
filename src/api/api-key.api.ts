@@ -19,5 +19,5 @@ export function generateAPIKey(value: APIKeysFormValue): APIKeys {
 }
 
 export async function createKey(value: APIKeysFormValue): Promise<APIKeys> {
-  return new Promise((r) => setTimeout(() => r(generateAPIKey(value)), 1000));
+  return new Promise((r) => setTimeout(() => r(generateAPIKey(value)), 3000));
 }

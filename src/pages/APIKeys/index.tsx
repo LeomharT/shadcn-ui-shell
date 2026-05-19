@@ -19,7 +19,7 @@ const mocked = [
     created: 'Apr 13, 2026',
     last_used: 'Never',
     created_by: 'Leo Leomhart',
-    permissions: 'All',
+    permissions: 'all',
   },
   {
     id: '2',
@@ -30,7 +30,7 @@ const mocked = [
     created: 'Apr 15, 2026',
     last_used: 'Never',
     created_by: 'Leo Leomhart',
-    permissions: 'All',
+    permissions: 'all',
   },
 ];
 

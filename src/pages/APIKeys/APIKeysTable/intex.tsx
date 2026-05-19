@@ -43,6 +43,8 @@ export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
         const newKeyItem = {
           ...generateAPIKey(value),
           creating: true,
+          secret_key: '',
+          tracking_id: '',
         };
 
         startTransition(async () => {
@@ -80,18 +82,25 @@ export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
         )}
         {optimisticData.map((item) => (
           <TableRow key={item[props.rowKey]} className='hover:bg-transparent'>
-            {props.columns.map((c, i) => (
-              <TableCell
-                key={c.key}
-                className={clsx('text-[13px] w-full nth-of-type-[1]:pl-0', {
-                  'text-muted-foreground': item.creating,
-                })}
-              >
-                {c.render
-                  ? c.render(item[c.dataIndex as keyof APIKeys], item, i)
-                  : item[c.dataIndex as keyof APIKeys]}
-              </TableCell>
-            ))}
+            {props.columns.map((c, i) => {
+              const key = c.dataIndex as keyof APIKeys;
+              return (
+                <TableCell
+                  key={c.key}
+                  className={clsx('text-[13px] w-full nth-of-type-[1]:pl-0', {
+                    'text-muted-foreground': item.creating,
+                  })}
+                >
+                  {c.render ? (
+                    c.render(item[key], item, i)
+                  ) : item[key] ? (
+                    item[key]
+                  ) : (
+                    <Skeleton className='h-4 w-full' />
+                  )}
+                </TableCell>
+              );
+            })}
           </TableRow>
         ))}
       </TableBody>
