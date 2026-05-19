@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { APIKeysFormValue } from '@/types/api-key.type';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import APIKeysCreate from './APIKeysCreate';
 import APIKeysTable, { type APIKeysTableRef } from './APIKeysTable/intex';
 
@@ -52,7 +52,10 @@ export default function APIKeys() {
 
   async function createKeyAction(value: APIKeysFormValue) {
     const newKeyItem = await createKey(value);
-    setData((prev) => [...prev, newKeyItem]);
+
+    startTransition(() => {
+      setData((prev) => [...prev, newKeyItem]);
+    });
   }
 
   useEffect(() => {
@@ -65,8 +68,6 @@ export default function APIKeys() {
       clearTimeout(timer);
     };
   }, []);
-
-  console.log(data);
 
   return (
     <div>
