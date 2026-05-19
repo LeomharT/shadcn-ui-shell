@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { APIKeysFormValue } from '@/types/api-key.type';
+import type { APIKeysFormValue, APIKeysOptimistic } from '@/types/api-key.type';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 import { startTransition, useEffect, useRef, useState } from 'react';
 import APIKeysCreate from './APIKeysCreate';
@@ -37,7 +37,7 @@ const mocked = [
 export default function APIKeys() {
   const table: APIKeysTableRef = useRef(null);
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const [active, setActive] = useState('project');
 
@@ -130,19 +130,21 @@ export default function APIKeys() {
               key: 'action',
               dataIndex: 'action',
               width: 100,
-              render: (_, r) => (
+              render: (_, r: APIKeysOptimistic) => (
                 <div className='inline-flex'>
                   <Button
-                    variant='ghost'
                     size='icon'
+                    variant='ghost'
+                    disabled={r?.creating}
                     className='[&_svg]:w-5! [&_svg]:h-5!'
                     onClick={() => console.log(r)}
                   >
                     <IconEdit />
                   </Button>
                   <Button
-                    variant='destructive'
                     size='icon'
+                    variant='destructive'
+                    disabled={r?.creating}
                     className='[&_svg]:w-5! [&_svg]:h-5! not-hover:bg-transparent dark:not-hover:bg-transparent'
                     onClick={() => console.log(r)}
                   >

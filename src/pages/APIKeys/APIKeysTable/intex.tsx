@@ -40,13 +40,13 @@ export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
   useImperativeHandle(ref, () => {
     return {
       updateData: (value) => {
-        const newKeys = {
+        const newKeyItem = {
           ...generateAPIKey(value),
           creating: true,
         };
 
         startTransition(async () => {
-          setOptimisticData((prev) => [...prev, newKeys]);
+          setOptimisticData((prev) => [...prev, newKeyItem]);
           await props.createKeyAction?.(value);
         });
       },
@@ -56,7 +56,7 @@ export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className='hover:bg-transparent'>
           {props.columns.map((c) => (
             <TableHead
               key={c.key}

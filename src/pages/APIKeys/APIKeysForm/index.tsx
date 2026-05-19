@@ -57,8 +57,8 @@ export default function APIKeysForm(props: APIKeysFormProps) {
               defaultValue={fields.project.defaultValue}
               onValueChange={fields.project.onChange}
             >
-              <SelectTrigger className='w-full'>
-                <SelectValue id='project' placeholder='Select a project' />
+              <SelectTrigger id='project' className='w-full'>
+                <SelectValue placeholder='Select a project' />
               </SelectTrigger>
               <SelectContent position='popper'>
                 <SelectGroup>
@@ -74,6 +74,7 @@ export default function APIKeysForm(props: APIKeysFormProps) {
               defaultValue={fields.permissions.defaultValue}
               onValueChange={fields.permissions.onChange}
             >
+              <input hidden id='permissions' />
               <TabsList>
                 <TabsTrigger value='all'>All</TabsTrigger>
                 <TabsTrigger value='restricted'>Restricted</TabsTrigger>
