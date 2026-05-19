@@ -8,11 +8,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { APIKeysFormValue } from '@/types/api-key.type';
 import APIKeysForm from '../APIKeysForm';
 
 type APIKeysCreateProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  onCreate: (value: APIKeysFormValue) => void;
 };
 
 const FORM_ID = 'create_secret_key';
@@ -38,10 +40,12 @@ export default function APIKeysCreate(props: APIKeysCreateProps) {
           </DialogDescription>
         </DialogHeader>
         {/* Form */}
-        <APIKeysForm id={FORM_ID} />
+        <APIKeysForm id={FORM_ID} onSubmit={props.onCreate} />
         {/* Footer */}
         <DialogFooter className='bg-transparent border-none'>
-          <Button variant='secondary'>Cancel</Button>
+          <Button variant='secondary' onClick={() => props.onOpenChange?.(false)}>
+            Cancel
+          </Button>
           <Button type='submit' form={FORM_ID}>
             Create secret key
           </Button>

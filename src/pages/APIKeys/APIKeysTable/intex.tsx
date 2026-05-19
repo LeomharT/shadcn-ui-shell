@@ -1,3 +1,4 @@
+import { generateAPIKey } from '@/api/api-key.api';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
@@ -7,18 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-type APIKeys = {
-  id: number;
-  name: string;
-  status: string;
-  tracking_id: string;
-  secret_key: string;
-  created: string;
-  last_used: string;
-  created_by: string;
-  permissions: string;
-};
+import type { APIKeys, APIKeysFormValue, APIKeysOptimistic } from '@/types/api-key.type';
+import clsx from 'clsx';
+import { startTransition, useImperativeHandle, useOptimistic, type RefObject } from 'react';
 
 type Columns<V, T> = {
   title: string;
@@ -29,14 +21,38 @@ type Columns<V, T> = {
   render?: (value: V, record: T, index: number) => React.ReactNode;
 };
 
+export type APIKeysTableRef = RefObject<{
+  updateData: (value: APIKeysFormValue) => void;
+} | null>;
+
 type APIKeysTableProps = {
+  ref: APIKeysTableRef;
   data: APIKeys[];
   columns: Columns<APIKeys[keyof APIKeys], APIKeys>[];
   rowKey: keyof APIKeys;
   loading?: boolean;
+  createKeyAction?: (value: APIKeysFormValue) => Promise<void>;
 };
 
-export default function APIKeysTable(props: APIKeysTableProps) {
+export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
+  const [optimisticData, setOptimisticData] = useOptimistic<APIKeysOptimistic[]>(props.data);
+
+  useImperativeHandle(ref, () => {
+    return {
+      updateData: (value) => {
+        const newKeys = {
+          ...generateAPIKey(value),
+          creating: true,
+        };
+
+        startTransition(async () => {
+          setOptimisticData((prev) => [...prev, newKeys]);
+          await props.createKeyAction?.(value);
+        });
+      },
+    };
+  });
+
   return (
     <Table>
       <TableHeader>
@@ -62,13 +78,18 @@ export default function APIKeysTable(props: APIKeysTableProps) {
             ))}
           </TableRow>
         )}
-        {props.data.map((item) => (
+        {optimisticData.map((item) => (
           <TableRow key={item[props.rowKey]} className='hover:bg-transparent'>
             {props.columns.map((c, i) => (
-              <TableCell key={c.key} className='text-[13px] w-full nth-of-type-[1]:pl-0'>
+              <TableCell
+                key={c.key}
+                className={clsx('text-[13px] w-full nth-of-type-[1]:pl-0', {
+                  'text-muted-foreground': item.creating,
+                })}
+              >
                 {c.render
-                  ? c.render(item[c.dataIndex as keyof (typeof props.data)[number]], item, i)
-                  : item[c.dataIndex as keyof (typeof props.data)[number]]}
+                  ? c.render(item[c.dataIndex as keyof APIKeys], item, i)
+                  : item[c.dataIndex as keyof APIKeys]}
               </TableCell>
             ))}
           </TableRow>

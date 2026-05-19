@@ -1,15 +1,17 @@
+import { createKey } from '@/api/api-key.api';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { APIKeysFormValue } from '@/types/api-key.type';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import APIKeysCreate from './APIKeysCreate';
-import APIKeysTable from './APIKeysTable/intex';
+import APIKeysTable, { type APIKeysTableRef } from './APIKeysTable/intex';
 
 const mocked = [
   {
-    id: 1,
+    id: '1',
     name: 'Secret key',
     status: 'Active',
     tracking_id: 'key_DlYgOSGundGD2Aq1',
@@ -20,7 +22,7 @@ const mocked = [
     permissions: 'All',
   },
   {
-    id: 2,
+    id: '2',
     name: 'Secret key',
     status: 'Active',
     tracking_id: 'key_DlYgOSGundGD2Aq1',
@@ -33,6 +35,8 @@ const mocked = [
 ];
 
 export default function APIKeys() {
+  const table: APIKeysTableRef = useRef(null);
+
   const [open, setOpen] = useState(true);
 
   const [active, setActive] = useState('project');
@@ -41,20 +45,32 @@ export default function APIKeys() {
 
   const [data, setData] = useState<typeof mocked>([]);
 
+  function handleOnCreate(val: APIKeysFormValue) {
+    setOpen(false);
+    table.current?.updateData(val);
+  }
+
+  async function createKeyAction(value: APIKeysFormValue) {
+    const newKeyItem = await createKey(value);
+    setData((prev) => [...prev, newKeyItem]);
+  }
+
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
       setData(mocked);
     }, 1000);
 
     return () => {
-      clearInterval(timer);
+      clearTimeout(timer);
     };
   }, []);
 
+  console.log(data);
+
   return (
     <div>
-      <APIKeysCreate open={open} onOpenChange={setOpen} />
+      <APIKeysCreate open={open} onOpenChange={setOpen} onCreate={handleOnCreate} />
       <header className='flex flex-col gap-3 mb-6'>
         <div className='flex flex-row flex-wrap gap-3 justify-between items-start'>
           <h1 className='scroll-m-20 text-[20px] font-semibold tracking-tight text-balance'>
@@ -95,6 +111,7 @@ export default function APIKeys() {
       </div>
       <div className='my-4.5'>
         <APIKeysTable
+          ref={table}
           rowKey='id'
           loading={loading}
           data={data}
@@ -134,6 +151,7 @@ export default function APIKeys() {
               ),
             },
           ]}
+          createKeyAction={createKeyAction}
         />
       </div>
     </div>
