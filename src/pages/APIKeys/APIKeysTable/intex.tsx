@@ -91,13 +91,9 @@ export default function APIKeysTable({ ref, ...props }: APIKeysTableProps) {
                     'text-muted-foreground': item.creating,
                   })}
                 >
-                  {c.render ? (
-                    c.render(item[key], item, i)
-                  ) : item[key] ? (
-                    item[key]
-                  ) : (
-                    <Skeleton className='h-4 w-full' />
-                  )}
+                  {c.render
+                    ? c.render(item[key], item, i)
+                    : item[key] || <Skeleton className='h-4 w-full' />}
                 </TableCell>
               );
             })}
