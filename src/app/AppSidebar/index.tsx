@@ -1,5 +1,7 @@
+import { Button } from '@/components/ui/button';
 import {
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -10,11 +12,12 @@ import {
 } from '@/components/ui/sidebar';
 import { useAppStore } from '@/hooks/useAppStore';
 import { useTheme } from '@/hooks/useTheme';
-import { useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery, useToggle } from '@mantine/hooks';
 import {
   IconBrandYoutube,
   IconHome,
   IconKey,
+  IconLayoutSidebar,
   IconMessageCircle,
   IconPhoto,
 } from '@tabler/icons-react';
@@ -71,6 +74,8 @@ export default function AppSidebar() {
 
   const [active, setActive] = useState(location.pathname);
 
+  const [minimal, toggleMinimal] = useToggle([false]);
+
   const className = clsx([classes.sidebar], {
     [classes.transition]: matches,
   });
@@ -79,6 +84,7 @@ export default function AppSidebar() {
     <aside ref={ref} data-expanded={expanded} aria-expanded={expanded} className={className}>
       <div className={classes.menus}>
         <SidebarProvider
+          className='min-h-full'
           style={
             {
               '--sidebar-accent': theme !== 'dark' ? '#DFDFDF' : undefined,
@@ -112,6 +118,16 @@ export default function AppSidebar() {
                 </SidebarGroupContent>
               </SidebarGroup>
             ))}
+            <SidebarFooter className='mt-auto'>
+              <Button
+                variant='secondary'
+                size='icon-lg'
+                className='ml-auto [&_svg]:w-4.5! [&_svg]:h-4.5!'
+                onClick={() => toggleMinimal()}
+              >
+                <IconLayoutSidebar />
+              </Button>
+            </SidebarFooter>
           </SidebarContent>
         </SidebarProvider>
       </div>
