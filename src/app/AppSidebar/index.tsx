@@ -124,6 +124,7 @@ export default function AppSidebar() {
             ))}
             <SidebarFooter className='mt-auto'>
               <Button
+                hidden={expanded}
                 variant='secondary'
                 size='icon-lg'
                 className='ml-auto [&_svg]:w-4.5! [&_svg]:h-4.5! not-dark:hover:bg-[#DFDFDF]'
