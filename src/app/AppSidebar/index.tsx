@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useAppStore } from '@/hooks/useAppStore';
 import { useTheme } from '@/hooks/useTheme';
-import { useMediaQuery, useToggle } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBrandYoutube,
   IconHome,
@@ -70,15 +70,17 @@ export default function AppSidebar() {
 
   const matches = useMediaQuery('(max-width: 48rem)');
 
-  const { expanded, toggleSiderbar } = useAppStore(useShallow((state) => ({ ...state })));
+  const { expanded, minimal, toggleMinimal, toggleSiderbar } = useAppStore(
+    useShallow((state) => ({ ...state })),
+  );
 
   const [active, setActive] = useState(location.pathname);
 
-  const [minimal, toggleMinimal] = useToggle([false]);
-
-  const className = clsx([classes.sidebar], {
+  const className = clsx([classes.sidebar, minimal ? 'w-15' : 'w-56'], {
     [classes.transition]: matches,
   });
+
+  const isMinimal = minimal && !expanded;
 
   return (
     <aside ref={ref} data-expanded={expanded} aria-expanded={expanded} className={className}>
@@ -94,7 +96,9 @@ export default function AppSidebar() {
           <SidebarContent>
             {menus.map((menu) => (
               <SidebarGroup key={menu.key}>
-                <SidebarGroupLabel hidden={!menu.label}>{menu.label}</SidebarGroupLabel>
+                {!isMinimal && (
+                  <SidebarGroupLabel hidden={!menu.label}>{menu.label}</SidebarGroupLabel>
+                )}
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {menu.items?.map((item) => (
@@ -102,14 +106,14 @@ export default function AppSidebar() {
                         <Link to={item.path} viewTransition>
                           <SidebarMenuButton
                             isActive={item.path === active}
-                            className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer'
+                            className='p-0 px-3 [&_svg]:w-5 [&_svg]:h-5 cursor-pointer text-nowrap'
                             onClick={() => {
                               setActive(item.path);
                               if (expanded) toggleSiderbar();
                             }}
                           >
                             {item.icon}
-                            {item.title}
+                            {!isMinimal && item.title}
                           </SidebarMenuButton>
                         </Link>
                       </SidebarMenuItem>
@@ -122,7 +126,7 @@ export default function AppSidebar() {
               <Button
                 variant='secondary'
                 size='icon-lg'
-                className='ml-auto [&_svg]:w-4.5! [&_svg]:h-4.5!'
+                className='ml-auto [&_svg]:w-4.5! [&_svg]:h-4.5! not-dark:hover:bg-[#DFDFDF]'
                 onClick={() => toggleMinimal()}
               >
                 <IconLayoutSidebar />
