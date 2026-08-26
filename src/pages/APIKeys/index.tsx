@@ -82,20 +82,22 @@ export default function APIKeys() {
             Create new secret key
           </Button>
         </div>
-        <Tabs value={active} onValueChange={setActive}>
-          <TabsList variant='line' className='p-0 gap-5'>
-            <TabsTrigger className='p-0 [&:after]:h-px' value='project'>
-              Project API Keys
-            </TabsTrigger>
-            <TabsTrigger className='p-0 [&:after]:h-px' value='user'>
-              User API Keys
-              <Badge className='rounded-xs bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300'>
-                Legacy
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-        <Separator />
+        <div className='flex flex-col gap-0.75'>
+          <Tabs value={active} onValueChange={setActive}>
+            <TabsList variant='line' className='p-0 gap-5'>
+              <TabsTrigger className='p-0 [&:after]:h-px' value='project'>
+                Project API Keys
+              </TabsTrigger>
+              <TabsTrigger className='p-0 [&:after]:h-px' value='user'>
+                User API Keys
+                <Badge className='rounded-xs bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300'>
+                  Legacy
+                </Badge>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <Separator />
+        </div>
       </header>
       <div>
         <div className='flex flex-col gap-3'>
