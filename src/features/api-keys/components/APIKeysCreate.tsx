@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { APIKeysFormValue } from '@/types/api-key.type';
-import APIKeysForm from '../APIKeysForm';
+import type { APIKeysFormValue } from '../types';
+import APIKeysForm from './APIKeysForm';
 
 type APIKeysCreateProps = {
   open?: boolean;

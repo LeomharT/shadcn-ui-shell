@@ -1,13 +1,14 @@
-import { createKey } from '@/api/api-key.api';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { APIKeysFormValue, APIKeysOptimistic } from '@/types/api-key.type';
+import { createKey } from '@/features/api-keys/api';
+import APIKeysCreate from '@/features/api-keys/components/APIKeysCreate';
+import type { APIKeysTableRef } from '@/features/api-keys/components/APIKeysTable';
+import APIKeysTable from '@/features/api-keys/components/APIKeysTable';
+import type { APIKeysFormValue, APIKeysOptimistic } from '@/features/api-keys/types';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 import { startTransition, useEffect, useRef, useState } from 'react';
-import APIKeysCreate from './APIKeysCreate';
-import APIKeysTable, { type APIKeysTableRef } from './APIKeysTable/intex';
 
 const mocked = [
   {

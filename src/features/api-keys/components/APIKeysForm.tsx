@@ -9,9 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { APIKeysFormValue } from '@/types/api-key.type';
 import { useForm } from '@mantine/form';
 import type React from 'react';
+import type { APIKeysFormValue } from '../types';
 
 type APIKeysFormProps = {
   id: string;

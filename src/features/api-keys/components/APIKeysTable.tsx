@@ -1,4 +1,3 @@
-import { generateAPIKey } from '@/api/api-key.api';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
@@ -8,9 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { APIKeys, APIKeysFormValue, APIKeysOptimistic } from '@/types/api-key.type';
 import clsx from 'clsx';
 import { startTransition, useImperativeHandle, useOptimistic, type RefObject } from 'react';
+import { generateAPIKey } from '../api';
+import type { APIKeys, APIKeysFormValue, APIKeysOptimistic } from '../types';
 
 type Columns<V, T> = {
   title: string;

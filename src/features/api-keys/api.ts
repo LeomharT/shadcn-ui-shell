@@ -1,4 +1,4 @@
-import type { APIKeys, APIKeysFormValue } from '@/types/api-key.type';
+import type { APIKeys, APIKeysFormValue } from './types';
 const formater = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
