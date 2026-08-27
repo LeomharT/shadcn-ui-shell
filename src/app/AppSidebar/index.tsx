@@ -18,6 +18,7 @@ import {
   IconHome,
   IconKey,
   IconLayoutSidebar,
+  IconLogs,
   IconMessageCircle,
   IconPhoto,
 } from '@tabler/icons-react';
@@ -57,7 +58,10 @@ const menus: SidebarGroups[] = [
   {
     key: 'group_manage',
     label: 'Manage',
-    items: [{ key: 'api-keys', title: 'API Keys', path: '/api-keys', icon: <IconKey /> }],
+    items: [
+      { key: 'api-keys', title: 'API Keys', path: '/api-keys', icon: <IconKey /> },
+      { key: 'logs', title: 'Logs', path: '/logs', icon: <IconLogs /> },
+    ],
   },
 ];
 
