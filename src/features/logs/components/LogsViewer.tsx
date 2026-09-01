@@ -19,6 +19,7 @@ export default function LogsViewer({ content }: LogsViewerProps) {
     <Virtuoso
       style={{ height: '100%' }}
       data={logs}
+      className='scrollbar-thin scrollbar-thumb-accent'
       itemContent={(_, data: string) => {
         if (!data) data = '';
         const json: LogsContent = JSON.parse(data);
@@ -31,7 +32,7 @@ export default function LogsViewer({ content }: LogsViewerProps) {
               <span>&nbsp;</span>
             </span>
             <div className='inline-flex flex-col flex-1'>
-              <span className='inline-block whitespace-pre py-0.5 pr-3 @md-page:pr-6 pl-1 @md-page:pl-3'>
+              <span className='inline-block whitespace-pre py-0.5 pr-6 @md:pr-6 pl-3 @md:pl-3'>
                 {json.msg}
               </span>
             </div>
