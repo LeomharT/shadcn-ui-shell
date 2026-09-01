@@ -2,6 +2,8 @@ import App from '@/app/App';
 import APIKeys from '@/pages/APIKeys';
 import Logs from '@/pages/Logs';
 import NotFound from '@/pages/NotFound';
+import Test from '@/pages/Test';
+
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router';
 
 const router = createBrowserRouter(
@@ -11,6 +13,8 @@ const router = createBrowserRouter(
       <Route path='chat' handle={{ title: 'Chat' }} element={'Chat'} />
       <Route path='api-keys' handle={{ title: 'API Keys' }} element={<APIKeys />} />
       <Route path='logs' handle={{ title: 'Logs' }} element={<Logs />} />
+      <Route path='test' handle={{ title: 'Test' }} element={<Test />} />
+
       {/* Not Found */}
       <Route path='*' element={<NotFound />} />
     </Route>,

@@ -15,6 +15,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBrandYoutube,
+  IconBug,
   IconHome,
   IconKey,
   IconLayoutSidebar,
@@ -61,6 +62,7 @@ const menus: SidebarGroups[] = [
     items: [
       { key: 'api-keys', title: 'API Keys', path: '/api-keys', icon: <IconKey /> },
       { key: 'logs', title: 'Logs', path: '/logs', icon: <IconLogs /> },
+      { key: 'test', title: 'Test', path: '/test', icon: <IconBug /> },
     ],
   },
 ];
