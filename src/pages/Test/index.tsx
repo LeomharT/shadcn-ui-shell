@@ -4,20 +4,34 @@ export default function Test() {
   const size = range * 2;
   const halfSize = size / 2;
 
+  const width = 40;
+  const height = 30;
+
   return (
     <div className='flex justify-center items-center'>
       <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size}>
         {/* Center */}
         <g transform={`translate(${halfSize} ${halfSize})`}>
           <circle cx={0} cy={0} r={6} fill='#DB2C6F' />
-          <circle
+          <rect
+            stroke='#DB2C6F'
+            fill='rgba(219, 44, 111, 0.25)'
+            strokeWidth={2}
+            x={-width / 2}
+            y={-height / 2}
+            rx={8}
+            ry={8}
+            width={width}
+            height={height}
+          />
+          {/* <circle
             cx={0}
             cy={0}
             r={20}
             strokeWidth={2}
             fill='rgba(219, 44, 111, 0.25)'
             stroke='#DB2C6F'
-          />
+          /> */}
           <line x1='20' y1='0' x2='40' y2='0' stroke='#DB2C6F' />
         </g>
 
