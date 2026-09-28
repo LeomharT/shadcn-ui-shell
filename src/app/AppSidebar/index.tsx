@@ -13,16 +13,7 @@ import {
 import { useAppStore } from '@/hooks/useAppStore';
 import { useTheme } from '@/hooks/useTheme';
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  IconBrandYoutube,
-  IconBug,
-  IconHome,
-  IconKey,
-  IconLayoutSidebar,
-  IconLogs,
-  IconMessageCircle,
-  IconPhoto,
-} from '@tabler/icons-react';
+import { IconForms, IconHome, IconKey, IconLayoutSidebar } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { useRef, useState, type CSSProperties, type Key, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
@@ -48,21 +39,16 @@ const menus: SidebarGroups[] = [
     items: [{ key: 'home', title: 'Home', path: '/', icon: <IconHome /> }],
   },
   {
-    key: 'gruop_action',
-    label: 'Actions',
-    items: [
-      { key: 'chat', title: 'Chat', path: '/chat', icon: <IconMessageCircle /> },
-      { key: 'images', title: 'Images', path: '/images', icon: <IconPhoto /> },
-      { key: 'video', title: 'Video', path: '/video', icon: <IconBrandYoutube /> },
-    ],
-  },
-  {
     key: 'group_manage',
     label: 'Manage',
+    items: [{ key: 'api-keys', title: 'API Keys', path: '/api-keys', icon: <IconKey /> }],
+  },
+
+  {
+    key: 'components',
+    label: 'Components',
     items: [
-      { key: 'api-keys', title: 'API Keys', path: '/api-keys', icon: <IconKey /> },
-      { key: 'logs', title: 'Logs', path: '/logs', icon: <IconLogs /> },
-      { key: 'test', title: 'Test', path: '/test', icon: <IconBug /> },
+      { key: 'form-fields', title: 'Form Fields', path: '/form-fields', icon: <IconForms /> },
     ],
   },
 ];
