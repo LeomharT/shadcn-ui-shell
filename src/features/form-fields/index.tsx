@@ -48,7 +48,6 @@ export default function FormFields() {
               id='checkout-7j9-same-as-shipping-wgm'
               label='Same as shipping address'
               {...form.getInputProps('billingAddress', { type: 'checkbox' })}
-              onCheckedChange={form.getInputProps('billingAddress').onChange}
             />
             <FormTextarea
               key={form.key('comments')}

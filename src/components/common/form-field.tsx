@@ -3,6 +3,7 @@ import type React from 'react';
 import { Checkbox } from '../ui/checkbox';
 import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '../ui/field';
 import { Input } from '../ui/input';
+import { RadioGroup } from '../ui/radio-group';
 import { Textarea } from '../ui/textarea';
 
 type FormFieldProps = {
@@ -121,6 +122,40 @@ export function FormTextarea({
       orientation={orientation}
     >
       <Textarea {...props} id={id} aria-invalid={!!error} />
+    </FormField>
+  );
+}
+
+type FormRadioProps = Omit<FormFieldProps, 'children'> &
+  GetInputPropsReturnType &
+  React.ComponentProps<'input'> & {
+    options: {
+      value: string | number;
+      label: React.ReactNode;
+    }[];
+  };
+
+export function FormRadio({
+  id,
+  description,
+  label,
+  error,
+  orientation,
+  ...props
+}: FormRadioProps) {
+  return (
+    <FormField
+      id={id}
+      description={description}
+      label={label}
+      error={error}
+      orientation={orientation}
+    >
+      <RadioGroup
+        defaultValue={props.defaultValue}
+        value={props.value}
+        onValueChange={console.warn}
+      ></RadioGroup>
     </FormField>
   );
 }
