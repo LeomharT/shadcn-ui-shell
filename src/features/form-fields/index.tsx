@@ -1,14 +1,18 @@
 import { FormCheckbox, FormTextarea, FormTextInput } from '@/components/common/form-field';
 import { Button } from '@/components/ui/button';
 import { Field, FieldDescription, FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
+import { useSyncExternalStore } from 'react';
 import { usePaymentForm } from './hooks/usePaymentForm';
+import { formStore } from './store';
 import type { Payment } from './type';
 
 export default function FormFields() {
   const form = usePaymentForm();
 
+  const results = useSyncExternalStore(formStore.subscript, formStore.getSnapshot, () => null);
+
   function handleOnSubmit(value: Payment) {
-    console.log(value);
+    formStore.add({ name: value.cardName + value.cardNumber });
   }
 
   return (
@@ -64,6 +68,9 @@ export default function FormFields() {
           </Field>
         </FieldGroup>
       </form>
+      {results?.map((value) => (
+        <div key={value.id}>{value.name}</div>
+      ))}
     </div>
   );
 }
