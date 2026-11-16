@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useAppStore } from '@/hooks/useAppStore';
 import { ErrorBoundary } from '@/pages/ErrorBoundary';
 import clsx from 'clsx';
+import { ViewTransition } from 'react';
 import { Outlet } from 'react-router';
 import AppSidebar from './AppSidebar';
 
@@ -24,7 +25,9 @@ export default function AppContent() {
         <Card className='h-full overflow-y-auto scrollbar-thin scrollbar-thumb-accent'>
           <CardContent className='h-full'>
             <ErrorBoundary>
-              <Outlet />
+              <ViewTransition>
+                <Outlet />
+              </ViewTransition>
             </ErrorBoundary>
           </CardContent>
         </Card>
